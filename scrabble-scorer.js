@@ -64,22 +64,23 @@ let scrabbleScorer = function(word){
 let simpleScorerObject = {
    name: "Simple Score",
    description: "Each letter is worth 1 point.",
-   scoringFunction: function(userInput){return simpleScorer(userInput)}
+   scorerFunction: simpleScorer
 };
 
 let vowelBonusScorerObject = {
    name: "Bonus Vowels",
    description: "Vowels are 3 pts, consonants are 1 pt.",
-   scoringFunction: function(userInput){return vowelBonusScorer(userInput)}
+   scorerFunction: vowelBonusScorer
  };
 
  let scrabbleScorerObject = {
    name: "Scrabble",
    description: "The traditional scoring algorithm.",
-   scoringFunction: function(userInput){return scrabbleScorer(userInput)}
+   scorerFunction: scrabbleScorer
  };
 
 const scoringAlgorithms = [simpleScorerObject, vowelBonusScorerObject, scrabbleScorerObject];
+
 
 function scorerPrompt() {
    let scoreToWord = input.question("Enter a word to score: ");
@@ -98,14 +99,15 @@ function scorerPrompt() {
    
    let userSelectInput = input.question("Enter 0, 1, or 2:");
    
-   while((isNaN(userSelectInput)) || (Number(userSelectInput)>2))
+   while((isNaN(userSelectInput)) || (Number(userSelectInput)>2) || (userSelectInput.length>1))
    {
       userSelectInput = input.question("Enter 0, 1, or 2:");
    }   
    
    let score = 0;
-   score = scoringAlgorithms[userSelectInput].scoringFunction(scoreToWord);
+   score = scoringAlgorithms[userSelectInput].scorerFunction(scoreToWord);
    console.log(`Score for ${scoreToWord} is : ${score}`); 
+   
 }
 
 function transform(oldStruct) {
@@ -122,25 +124,18 @@ function transform(oldStruct) {
          newStruct[propertyName.toLowerCase()]=Number(key);
       }
    }
+   newStruct[' ']=0;
+   console.log(newStruct);
    return newStruct;
-   // console.log("Scrabble scoring values for");
-   // console.log("letter a: ", newPointStructure.A);
-   // console.log("letter j: ", newPointStructure.J);
-   // console.log("letter z: ", newPointStructure["Z"]);
-   // console.log("Letters with score '4':", oldPointStructure['4']);
-   // console.log("3rd letter within the key '4' array:", oldPointStructure['4'][2]);
 
-   // let letters = oldPointStructure['8'];
-   // console.log("Letters with score '8':", letters);
-   // console.log("2nd letter within the key '8' array:", letters[1]);
 };
 
 let newPointStructure =transform(oldPointStructure);
 
 function runProgram() {
    //initialPrompt();
-   scorerPrompt();
    //transform(oldPointStructure);
+   scorerPrompt();
 }
 
 // Don't write any code below this line //
