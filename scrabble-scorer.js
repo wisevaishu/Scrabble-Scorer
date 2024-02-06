@@ -121,11 +121,10 @@ function transform(oldStruct) {
       for(let j=0;j<oldStruct[key].length;j++)
       {
          propertyName = letters[j];
-         newStruct[propertyName.toLowerCase()]=Number(key);
+         newStruct[propertyName.toLowerCase()]=Number(key); 
       }
    }
    newStruct[' ']=0;
-   console.log(newStruct);
    return newStruct;
 
 };
