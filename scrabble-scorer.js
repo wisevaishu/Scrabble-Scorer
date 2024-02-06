@@ -124,7 +124,7 @@ function transform(oldStruct) {
          newStruct[propertyName.toLowerCase()]=Number(key); 
       }
    }
-   newStruct[' ']=0;
+   //newStruct[' ']=0;
    return newStruct;
 
 };
